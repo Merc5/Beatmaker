@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en" >
+
+<head>
+
+  <meta charset="UTF-8">
+  
+<link rel="apple-touch-icon" type="image/png" href="https://cpwebassets.codepen.io/assets/favicon/apple-touch-icon-5ae1a0698dcc2402e9712f7d01ed509a57814f994c660df9f7a952f3060705ee.png" />
+<meta name="apple-mobile-web-app-title" content="CodePen">
+
+<link rel="shortcut icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/favicon-aec34940fbc1a6e787974dcd360f2c6b63348d4b1f4e06c77743096d55480f33.ico" />
+
+<link rel="mask-icon" type="image/x-icon" href="https://cpwebassets.codepen.io/assets/favicon/logo-pin-8f3771b1072e3c38bd662872f6b673a722f4b3ca2421637d5596661b4e2132cc.svg" color="#111" />
+
+
+  <title>Drum Machine</title>
+  
+  
+  
+  
+<style>
+@import url("https://fonts.googleapis.com/css?family=Mr+Dafoe&display=swap");
+@import url("https://fonts.googleapis.com/css?family=Audiowide&display=swap");
+* {
+  font-family: "Audiowide", cursive;
+}
+
+body {
+  margin: 0;
+  background-image: url(https://i.ibb.co/k0HVr0w/126406.jpg);
+  background-color: white;
+  height: 100vh;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
+
+#banner-title {
+  text-align: center;
+  color: white;
+  margin: 0px;
+  padding: 0px;
+}
+
+#main-title {
+  font-size: 45px;
+  line-height: 1;
+  text-shadow: 0 0 40px #260729, 0 0 50px #260729;
+}
+
+#sub-title {
+  margin-top: -45px;
+  font-family: "Mr Dafoe", cursive;
+  font-style: normal;
+  font-size: 40px;
+  line-height: 1;
+  color: #e60073;
+}
+
+#drum-machine {
+  display: grid;
+  grid-row: auto auto;
+  width: 280px;
+  margin: 10px auto 0px auto;
+  padding: 30px;
+  box-shadow: 0px 0px 30px 20px rgba(38, 7, 41, 0.8);
+  border-radius: 10px;
+  background-color: rgba(38, 7, 41, 0.8);
+}
+
+#display {
+  margin: -20px 0px 20px 0px;
+  text-align: center;
+  vertical-align: top;
+  color: #fff;
+  font-size: 26px;
+}
+
+.display {
+  text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #B842B9, 0 0 50px #B842B9, 0 0 60px #B842B9, 0 0 70px #B842B9, 0 0 80px #B842B9;
+}
+
+.display-active {
+  text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #2AEBFE, 0 0 50px #2AEBFE, 0 0 60px #2AEBFE, 0 0 70px #2AEBFE, 0 0 80px #2AEBFE;
+}
+
+#pad-wrap {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-rows: 1fr 1fr 1fr;
+  grid-gap: 20px 20px;
+}
+
+.drum-pad {
+  width: 80px;
+  height: 80px;
+  margin: auto;
+  color: #fff;
+  font-size: 25px;
+  text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #B842B9, 0 0 50px #B842B9, 0 0 60px #B842B9, 0 0 70px #B842B9, 0 0 80px #B842B9;
+  background-color: rgba(0, 0, 0, 0);
+  border: 0.5px solid #fff;
+  border-radius: 5px;
+  box-shadow: inset 0px 0px 10px 2px white, inset 0px 0px 20px 2px #B842B9, inset 0px 0px 30px 3px #B842B9, 0px 0px 10px 2px white, 0px 0px 20px 3px #B842B9, 0px 0px 30px 3px #B842B9;
+}
+.drum-pad:hover {
+  text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073, 0 0 80px #e60073;
+  box-shadow: inset 0px 0px 10px 2px white, inset 0px 0px 20px 2px #e60073, inset 0px 0px 30px 3px #e60073, 0px 0px 10px 2px white, 0px 0px 20px 3px #e60073, 0px 0px 30px 3px #e60073;
+}
+.drum-pad:focus {
+  text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073, 0 0 80px #e60073;
+  box-shadow: inset 0px 0px 10px 2px white, inset 0px 0px 20px 2px #e60073, inset 0px 0px 30px 3px #e60073, 0px 0px 10px 2px white, 0px 0px 20px 3px #e60073, 0px 0px 30px 3px #e60073;
+  outline: none;
+}
+
+.activate {
+  text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #2AEBFE, 0 0 50px #2AEBFE, 0 0 60px #2AEBFE, 0 0 70px #2AEBFE, 0 0 80px #2AEBFE;
+  box-shadow: inset 0px 0px 10px 2px white, inset 0px 0px 20px 2px #2AEBFE, inset 0px 0px 30px 3px #2AEBFE, 0px 0px 10px 2px white, 0px 0px 20px 3px #2AEBFE, 0px 0px 30px 3px #2AEBFE;
+}
+.activate:hover {
+  text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #2AEBFE, 0 0 50px #2AEBFE, 0 0 60px #2AEBFE, 0 0 70px #2AEBFE, 0 0 80px #2AEBFE;
+  box-shadow: inset 0px 0px 10px 2px white, inset 0px 0px 20px 2px #2AEBFE, inset 0px 0px 30px 3px #2AEBFE, 0px 0px 10px 2px white, 0px 0px 20px 3px #2AEBFE, 0px 0px 30px 3px #2AEBFE;
+}
+.activate:focus {
+  text-shadow: 0 0 20px #fff, 0 0 30px #fff, 0 0 40px #2AEBFE, 0 0 50px #2AEBFE, 0 0 60px #2AEBFE, 0 0 70px #2AEBFE, 0 0 80px #2AEBFE;
+  box-shadow: inset 0px 0px 10px 2px white, inset 0px 0px 20px 2px #2AEBFE, inset 0px 0px 30px 3px #2AEBFE, 0px 0px 10px 2px white, 0px 0px 20px 3px #2AEBFE, 0px 0px 30px 3px #2AEBFE;
+  outline: none;
+}
+
+footer {
+  margin: auto;
+  margin-top: 40px;
+  width: 80%;
+  text-align: center;
+  color: white;
+  text-shadow: 0 0 50px #260729, 0 0 60px #260729;
+}
+footer a {
+  color: white;
+  text-shadow: 0 0 50px #260729, 0 0 60px #260729;
+}
+</style>
+
+  <script>
+  window.console = window.console || function(t) {};
+</script>
+
+  
+  
+  <script>
+  if (document.location.search.match(/type=embed/gi)) {
+    window.parent.postMessage("resize", "*");
+  }
+</script>
+
+
+</head>
+
+<body translate="no" >
+  <body>
+<!--For FCC project test suite. Only functions when in body for some reason.-->
+<script src="https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js"></script>
+
+<div id="banner-title">
+  <h1 id="main-title">BEAT CREATER</h1>
+  <p id="sub-title">merc5</p>
+</div>
+
+<div id="drum-machine">
+  <div id="React-App">
+  </div>
+</div>
+</body>
+<footer>
+    <p>Coded by yours truly Narc_</p>
+</footer>
+    <script src="https://cpwebassets.codepen.io/assets/common/stopExecutionOnTimeout-1b93190375e9ccc259df3a57c1abc0e64599724ae30d7ea4c6877eb615f89387.js"></script>
+
+  <script src='https://unpkg.com/react@15.3.2/dist/react.js'></script>
+<script src='https://unpkg.com/react-dom@15.3.2/dist/react-dom.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/react-bootstrap/0.30.5/react-bootstrap.js'></script>
+<script src='https://unpkg.com/babel-standalone@6.15.0/babel.min.js'></script>
+      <script id="rendered-js" >
+/*Sound sources:
+    Kick/Hat/Snare: https://freesound.org/people/Hard3eat/
+    Lastic: https://freesound.org/people/deleted_user_2195044/
+    Clap: https://freesound.org/people/gmortizwavs/sounds/417170/
+    Warble: https://freesound.org/people/VisionSpace/sounds/322856/
+*/
+const sounds = {
+  Q: { source: 'https://freesound.org/data/previews/243/243158_2195044-lq.mp3',
+    key: 81,
+    name: 'High Tome' },
+  W: { source: 'https://freesound.org/data/previews/243/243159_2195044-lq.mp3',
+    key: 87,
+    name: 'Mid Tone' },
+  E: { source: 'https://freesound.org/data/previews/243/243147_2195044-lq.mp3',
+    key: 69,
+    name: 'Low Tone' },
+  A: { source: 'https://freesound.org/data/previews/322/322856_4455510-lq.mp3',
+    key: 65,
+    name: 'Warble' },
+  S: { source: 'https://freesound.org/data/previews/336/336656_2278554-lq.mp3',
+    key: 83,
+    name: 'Heavy Kick' },
+  D: { source: 'https://freesound.org/data/previews/417/417170_6603437-lq.mp3',
+    key: 68,
+    name: 'Clap' },
+  Z: { source: 'https://freesound.org/data/previews/387/387347_2278554-lq.mp3',
+    key: 90,
+    name: 'High Hat' },
+  X: { source: 'https://freesound.org/data/previews/387/387346_2278554-lq.mp3',
+    key: 88,
+    name: 'Kick' },
+  C: { source: 'https://freesound.org/data/previews/387/387345_2278554-lq.mp3',
+    key: 67,
+    name: 'Snare' } };
+
+
+//Functions
+function buttonPress(id, src) {
+
+}
+
+//React
+class Button extends React.Component {
+  constructor(props) {
+    super(props);
+    this.playSound = this.playSound.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
+  }
+
+  componentDidMount() {
+    document.addEventListener('keydown', this.handleKeyPress);
+  }
+
+  componentWillUnmount() {
+    document.removeEventListener('keydown', this.handleKeyPress);
+  }
+
+  playSound() {
+    this.props.updateDisplay(sounds[this.props.letter].name);
+    var ID = 'button ' + this.props.letter;
+
+    //Update CSS for button
+    if (!document.getElementById(ID).classList.contains('activate')) {
+      document.getElementById(ID).classList.add('activate');
+      document.getElementById('display').classList.add('display-active');
+    };
+
+    //Play Sound assosiated with button
+    const sound = document.getElementById(this.props.letter);
+    sound.currentTime = 0;
+    sound.play();
+
+    //Return style to normal:
+    setTimeout(function () {
+      if (document.getElementById(ID).classList.contains('activate')) {
+        document.getElementById(ID).classList.remove('activate');
+        document.getElementById('display').classList.remove('display-active');
+      }
+    }, 200);
+  }
+
+  handleKeyPress(event) {
+    if (event.keyCode == sounds[this.props.letter].key) {
+      this.playSound();
+    }
+  }
+
+  render() {
+    var ID = 'button ' + this.props.letter;
+    return /*#__PURE__*/(
+      React.createElement("button", {
+        className: this.props.classes.join(' '),
+        id: ID,
+        onClick: this.playSound },
+      this.props.letter, /*#__PURE__*/
+      React.createElement("audio", {
+        className: "clip",
+        id: this.props.letter,
+        src: sounds[this.props.letter].source })));
+
+
+  }}
+
+
+class Display extends React.Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return /*#__PURE__*/(
+      React.createElement("div", { id: "display", className: "display" }, this.props.displayMessage));
+
+
+  }}
+
+
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      displayMessage: 'Click or press key' };
+
+    this.updateDisplay = this.updateDisplay.bind(this);
+  }
+
+  updateDisplay(newMessage) {
+    this.setState({
+      displayMessage: newMessage });
+
+  }
+
+  render() {
+    return /*#__PURE__*/(
+      React.createElement("div", { id: "outer-container" }, /*#__PURE__*/
+      React.createElement(Display, { displayMessage: this.state.displayMessage }), /*#__PURE__*/
+      React.createElement("div", { id: "pad-wrap" }, /*#__PURE__*/
+      React.createElement(Button, { letter: "Q", updateDisplay: this.updateDisplay, classes: ['drum-pad'] }), /*#__PURE__*/
+      React.createElement(Button, { letter: "W", updateDisplay: this.updateDisplay, classes: ['drum-pad'] }), /*#__PURE__*/
+      React.createElement(Button, { letter: "E", updateDisplay: this.updateDisplay, classes: ['drum-pad'] }), /*#__PURE__*/
+      React.createElement(Button, { letter: "A", updateDisplay: this.updateDisplay, classes: ['drum-pad'] }), /*#__PURE__*/
+      React.createElement(Button, { letter: "S", updateDisplay: this.updateDisplay, classes: ['drum-pad'] }), /*#__PURE__*/
+      React.createElement(Button, { letter: "D", updateDisplay: this.updateDisplay, classes: ['drum-pad'] }), /*#__PURE__*/
+      React.createElement(Button, { letter: "Z", updateDisplay: this.updateDisplay, classes: ['drum-pad'] }), /*#__PURE__*/
+      React.createElement(Button, { letter: "X", updateDisplay: this.updateDisplay, classes: ['drum-pad'] }), /*#__PURE__*/
+      React.createElement(Button, { letter: "C", updateDisplay: this.updateDisplay, classes: ['drum-pad'] }))));
+
+
+
+  }}
+;
+
+ReactDOM.render( /*#__PURE__*/React.createElement(App, null), document.getElementById('React-App'));
+//# sourceURL=pen.js
+    </script>
+
+  
+
+</body>
+
+</html>
+ 
